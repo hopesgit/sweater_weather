@@ -12,6 +12,7 @@ gem 'rack-cors'
 gem 'jsonapi-serializer'
 gem 'faraday'
 gem 'figaro'
+gem 'travis'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
