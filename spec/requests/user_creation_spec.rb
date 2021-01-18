@@ -35,11 +35,12 @@ describe 'When a POST request is sent to "/api/v1/users"' do
 
     it 'can\'t create a user if password_confirmation field is missing' do
       expect {post '/api/v1/users', params: {
-                                      headers: {"ACCEPT": "application/json"},
-                                      body: {
-                                              "email": "whatever22@example.com",
-                                              "password": "password"
-                                            }}}.to raise_error(StandardError)
+                                    headers: {"ACCEPT": "application/json"},
+                                    body: {
+                                          "email": "whatever22@example.com",
+                                          "password": "password"
+                                          }
+                                    }}.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'can\'t create a user if password field is missing' do
@@ -74,7 +75,7 @@ describe 'When a POST request is sent to "/api/v1/users"' do
     end
 
     it 'can\'t create a user if no params given' do
-      expect {post '/api/v1/users'}.to raise_error(StandardError)
+      expect {post '/api/v1/users'}.to raise_error(ActionController::ParameterMissing)
     end
   end
 end
