@@ -6,7 +6,6 @@ describe UsersSerializer, type: :class do
   end
 
   it 'reports this data' do
-    # binding.pry
     payload = UsersSerializer.new(@user).to_json
     json_payload = {
       "data": {
@@ -18,6 +17,11 @@ describe UsersSerializer, type: :class do
         }
       }
     }
-    expect(JSON.parse(payload, symbolize_names: true)).to eq(json_payload)
+    parsed_payload = JSON.parse(payload, symbolize_names: true)
+    expect(parsed_payload).to eq(json_payload)
+    expect(parsed_payload.keys).to contain_exactly(:data)
+    expect(parsed_payload[:data].keys).to contain_exactly(:id, :type, :attributes)
+    expect(parsed_payload[:data][:attributes].keys).to contain_exactly(:email, :api_key)
+    expect(parsed_payload[:data][:attributes].keys).to_not include(:id, :created_at, :updated_at)
   end
 end
